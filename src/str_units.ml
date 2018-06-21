@@ -82,6 +82,10 @@ let units_to_dim_vectors_exn str =
         List.map ~f:(function | Some x -> x | None -> failwith ("Unkown unit:" ^ str)) |>
         List.fold_left ~init:null_dim_vector ~f:( *! )  
 
+type unit_or_str =
+        | Str_unit   of string
+        | Dim_vector of dim_vector
+
 let q value str =
         let dim_vector =
                 units_to_dim_vectors_exn str in 
@@ -124,3 +128,8 @@ let ( +$ ) a b =
 let ( -$ ) a b =
         operation_on_quantities_exn ~op:( -. ) a b
 
+let ( *$ ) a b =
+        { value = (a.value *. b.value); unit = (a.unit *! b.unit) }
+
+let ( /$ ) a b =
+        { value = (a.value /. b.value); unit =(a.unit /! b.unit) }
