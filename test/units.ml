@@ -1,10 +1,6 @@
 open Lgo
 open OUnit2
-
-(* Helpers *)
-
-let assert_inequal v1 v2 =
-        assert_bool "should be inequal" (v1 != v2)
+open Helpers
 
 (* Tests *)
 

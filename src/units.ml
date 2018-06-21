@@ -1,4 +1,16 @@
-(* SI units *)
+(*
+ @file
+ @brief Definition of SI base units and constants
+
+ Definition of SI base units and constants used elsewhere in the code.
+ Partly inherited from CRPropa3.
+ Based on:
+ - CODATA recommended values of the fundamental physical constants: 2006
+        doi:10.1103/RevModPhys.80.633
+ - IAU 2012 Resolution B2, IAU 2015 Resolution B2
+        https://www.iau.org/administration/resolutions/
+*)
+
 type dim_vector = {
         metre   : float;
         second  : float;

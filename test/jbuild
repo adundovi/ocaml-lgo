@@ -1,8 +1,8 @@
 (jbuild_version 1)
 
-(executable
+(executables
  (
-  (name units)
+  (names (units vector3))
   (libraries (lgo oUnit))
  )
 )
@@ -12,6 +12,19 @@
   (name    runtest)
   (package lgo)
   (deps    (units.exe))
-  (action (run ${exe:units.exe}))
+  (action 
+	(run ${exe:units.exe})
+  )
+ )
+)
+
+(alias
+ (
+  (name    runtest)
+  (package lgo)
+  (deps    (vector3.exe))
+  (action 
+	(run ${exe:vector3.exe})
+  )
  )
 )
