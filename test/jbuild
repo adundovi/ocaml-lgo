@@ -1,0 +1,17 @@
+(jbuild_version 1)
+
+(executable
+ (
+  (name units)
+  (libraries (lgo oUnit))
+ )
+)
+
+(alias
+ (
+  (name    runtest)
+  (package lgo)
+  (deps    (units.exe))
+  (action (run ${exe:units.exe}))
+ )
+)

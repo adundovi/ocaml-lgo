@@ -1,0 +1,21 @@
+opam-version: "0.1"
+maintainer: "andrej@dundovic.com.hr"
+authors: ["Andrej Dundovic <andrej@dundovic.com.hr"]
+homepage: ""
+bug-reports: ""
+dev-repo: ""
+license: "MIT"
+build: [
+  ["jbuilder" "build" "-p" name "-j" jobs]
+]
+depends: [
+  "core"
+  "jbuilder"                {build & >= "1.0+beta18.1"}
+]
+available: [ ocaml-version >= "4.06.1" ]
+descr: "
+Lgo is a library which provides all kinds of tools and functions
+with the focus on physics and science.
+
+Built on top of the Core suite.
+"

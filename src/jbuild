@@ -1,0 +1,10 @@
+(jbuild_version 1)
+
+(library
+ (
+  (name lgo)
+  (public_name lgo)
+  (libraries (core))
+ )
+)
+
