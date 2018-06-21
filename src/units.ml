@@ -31,14 +31,10 @@ type q_variant =
         | Dim_vector of dim_vector
         | Quantity of quantity
 
-
-exception Unaddressed_option of string list
-exception Unmatched_quantities of dim_vector * dim_vector
+(* operation on units *)
 
 let null_dim_vector = { metre = 0.; second = 0.; kilogram = 0.;
         ampere = 0.; kelvin = 0.; mole = 0.; candela = 0.; factor = 1. }
-
-(* operation on units *)
 
 let ( *! ) a b = {
         metre   = a.metre +. b.metre;
@@ -48,7 +44,7 @@ let ( *! ) a b = {
         kelvin  = a.kelvin +. b.kelvin;
         mole    = a.mole +. b.mole;
         candela = a.candela +. b.candela;
-        factor  = a.factor *. a.factor;
+        factor  = a.factor *. b.factor;
 }
 
 let ( /! ) a b = {
@@ -143,6 +139,18 @@ let k_boltzmann = 1.3806488e-23 *@ joule /! kelvin
 let mu0         = (4. *. Lgo_math.pi *. 1e-7) *@ newton /! (ampere **! 2.0)
 let epsilon0    = 1.0 /@ mu0 /! c_squared *! ampere *! second /! volt /! metre
 
+(* time and mass *)
+
+let minute      = 60. *@ second
+let hour        = 60. *@ minute
+let day         = 24. *@ hour
+let week        = 7.  *@ day
+let year        = 365.25 *@ day
+
+let gram        = 0.001 *@ kilogram
+let tonne       = 1000. *@ kilogram
+let pound       = 0.45359237 *@ kilogram
+
 (* other units *)
 
 let gauss       = 1e-4 *@ tesla
@@ -150,11 +158,13 @@ let electronvolt= eplus *! joule
 
 (* astronomical distances *)
 let au          = 149597870700.0 *@ metre
-let ly          = (365.25 *. 24.0 *. 3600.0) *@ second *! c_light
+let lightyear   = year *! c_light
 let parsec      = 648000.0 /. Lgo_math.pi *@ au
 
 (* SI prefixes *)
 
+let yocto x = 1e-24 *@ x
+let zepto x = 1e-21 *@ x
 let atto  x = 1e-18 *@ x
 let femto x = 1e-15 *@ x
 let pico  x = 1e-12 *@ x
@@ -172,4 +182,4 @@ let tera  x = 1e12  *@ x
 let peta  x = 1e15  *@ x
 let exa   x = 1e18  *@ x
 let zetta x = 1e21  *@ x
-
+let yotta x = 1e24  *@ x
