@@ -1,8 +1,8 @@
 opam-version: "0.1"
 maintainer: "andrej@dundovic.com.hr"
 authors: ["Andrej Dundovic <andrej@dundovic.com.hr"]
-homepage: ""
-bug-reports: ""
+homepage: "https://github.com/adundovi/ocaml-lgo"
+bug-reports: "https://github.com/adundovi/ocaml-lgo/issues"
 dev-repo: ""
 license: "MIT"
 build: [
