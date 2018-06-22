@@ -36,7 +36,10 @@ let unit_str_list = [
         "K", kelvin;
         "A", ampere;
         "N", newton;
-        "Hz", hertz
+        "Hz", hertz;
+        "Pa", pascal;
+        "V", volt;
+        "W", watt;
 ]        
 
 let unit_str_list_special = [
@@ -82,10 +85,6 @@ let units_to_dim_vectors_exn str =
         List.map ~f:(function | Some x -> x | None -> failwith ("Unkown unit:" ^ str)) |>
         List.fold_left ~init:null_dim_vector ~f:( *! )  
 
-type unit_or_str =
-        | Str_unit   of string
-        | Dim_vector of dim_vector
-
 let q value str =
         let dim_vector =
                 units_to_dim_vectors_exn str in 
@@ -95,23 +94,24 @@ let q value str =
         }
 
 let dim_vector_to_unit_str vec =
-        let format_unit_power pow unit =
-               if pow = 0.0 then "" else
-               if pow = 1.0 then unit
-               else unit ^ "^" ^ (string_of_float pow)
+        let rec print_unit = function
+                | [] -> ""
+                | hd::rest -> (Printf.sprintf "%s" hd) ^ (print_unit rest) in 
+        let base_units = ["m"; "s"; "kg"; "A"; "K"; "mol"; "cd"] in
+        let make_unit (unit, power) =
+                match power with
+                | 0.0 -> None
+                | 1.0 -> Some unit
+                | x -> Some (unit ^ "^" ^ (string_of_float x))
         in
-        Printf.sprintf "%s%s%s%s%s%s%s"
-                (format_unit_power vec.metre "m")
-                (format_unit_power vec.second "s")
-                (format_unit_power vec.kilogram "kg")
-                (format_unit_power vec.ampere "A")
-                (format_unit_power vec.kelvin "K")
-                (format_unit_power vec.mole "mol")
-                (format_unit_power vec.candela "cd")
+        List.map ~f:make_unit (List.zip_exn base_units (dim_vector_to_list vec))
+        |> List.filter_opt
+        |> List.intersperse ~sep:"*"
+        |> print_unit
 
 let stringify a =
         let print value unit =
-                Printf.sprintf "%f %s" value unit in
+                Printf.sprintf "%.8g %s" value unit in
         print a.value (dim_vector_to_unit_str a.unit) 
 
 

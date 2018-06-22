@@ -19,6 +19,9 @@ let test_lightyear test_ctxt =
         let dist = (q 10. "ly") in
         assert_bool "not equal" ((dist.value *@ dist.unit) = (10. *@ (c_light *! year)))
 
+let test_stringify test_ctxt =
+        assert_equal (stringify (q 9. "N")) "9 m*s^-2.*kg"
+
 let suite =
 "str_units">:::
  [
@@ -26,6 +29,7 @@ let suite =
          "str to dim_vector"     >:: test_str_to_dim_vector;
          "units to dim_vectors"  >:: test_units_to_dim_vectors_exn;
          "test quantity in ly"   >:: test_lightyear;
+         "test stringify"        >:: test_stringify;
  ]
 
 let () =

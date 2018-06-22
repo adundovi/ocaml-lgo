@@ -31,6 +31,10 @@ type q_variant =
         | Dim_vector of dim_vector
         | Quantity of quantity
 
+let dim_vector_to_list a = [
+        a.metre; a.second; a.kilogram; a.ampere; a.kelvin; a.mole; a.candela; 
+]
+
 (* operation on units *)
 
 let null_dim_vector = { metre = 0.; second = 0.; kilogram = 0.;
@@ -124,6 +128,8 @@ let tesla       = newton /! ampere /! metre
 let volt        = kilogram *! (metre **! 2.0) /! ampere /! (second **! 3.0)
 let coulomb     = ampere *! second
 let hertz       = second **! (-1.0)
+let watt        = ampere *! volt
+let ohm         = volt /! ampere
 
 (* physical constants *)
 
