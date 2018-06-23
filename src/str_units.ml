@@ -36,10 +36,14 @@ let unit_str_list = [
         "K", kelvin;
         "A", ampere;
         "N", newton;
+        "J", joule;
+        "eV", electronvolt;
         "Hz", hertz;
         "Pa", pascal;
         "V", volt;
         "W", watt;
+        "C", coulomb;
+        "pc", parsec;
 ]        
 
 let unit_str_list_special = [
@@ -133,3 +137,7 @@ let ( *$ ) a b =
 
 let ( /$ ) a b =
         { value = (a.value /. b.value); unit =(a.unit /! b.unit) }
+
+let convert a ~to_unit:str =
+        let quotient = (operation_on_quantities_exn ~op:( /. ) a (q 1. str)).value in
+        Printf.sprintf "%.8g %s" quotient str
