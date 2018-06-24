@@ -3,7 +3,6 @@ open Lgo_string
 open Core
 
 let apply_prefixes (str, f) =
-        Printf.printf "%s" str;
         let make_unit_with_prefix (prefix_name, prefix) =
                 (prefix_name ^ str, (prefix f)) in
         let prefixes_SI_list = [
@@ -44,9 +43,10 @@ let unit_str_list = [
         "W", watt;
         "C", coulomb;
         "pc", parsec;
+        "G", gauss;
 ]        
 
-let unit_str_list_special = [
+let unit_str_special_list = [
         "g", gram;
         "kg", kilogram;
         "t", tonne;
@@ -57,12 +57,26 @@ let unit_str_list_special = [
         "week", week;
         "yr", year;
         "ly", lightyear;
+        "au", au;
+]
+
+let constants_list = [
+        "e_plus", e_plus;
+        "c_light", c_light;
+        "amu", amu;
+        "m_proton", m_proton;
+        "m_neutron", m_neutron;
+        "m_electron", m_electron;
+        "h_planck", h_planck;
+        "k_boltzmann", k_boltzmann;
 ]
 
 let units_with_prefixes =
         List.concat (List.map ~f:apply_prefixes unit_str_list)
 
-let unit_mapping = String.Map.of_alist_exn (units_with_prefixes @ unit_str_list_special)
+let unit_mapping = String.Map.of_alist_exn (units_with_prefixes 
+                                        @ unit_str_special_list
+                                        @ constants_list)
 
 let unit_to_dim_vector unit exp =
         match (Map.find unit_mapping unit) with

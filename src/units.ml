@@ -125,15 +125,15 @@ let newton      = kilogram *! metre /! (second **! 2.0)
 let pascal      = newton /! (metre **! 2.0)
 let joule       = newton *! metre
 let tesla       = newton /! ampere /! metre
-let volt        = kilogram *! (metre **! 2.0) /! ampere /! (second **! 3.0)
 let coulomb     = ampere *! second
+let volt        = joule /! coulomb
 let hertz       = second **! (-1.0)
 let watt        = ampere *! volt
 let ohm         = volt /! ampere
 
 (* physical constants *)
 
-let eplus       = 1.602176487e-19 *@ ampere *! second
+let e_plus       = 1.602176487e-19 *@ coulomb
 let c_light     = 2.99792458e8 *@ metre /! second
 let c_squared   = c_light **! 2.0
 let amu         = 1.660538921e-27 *@ kilogram
@@ -160,7 +160,7 @@ let pound       = 0.45359237 *@ kilogram
 (* other units *)
 
 let gauss       = 1e-4 *@ tesla
-let electronvolt= eplus *! joule
+let electronvolt= e_plus *! volt
 
 (* astronomical distances *)
 let au          = 149597870700.0 *@ metre
